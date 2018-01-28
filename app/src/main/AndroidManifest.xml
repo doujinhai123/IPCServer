@@ -18,14 +18,24 @@
         </activity>
 
 
+        <!--<service-->
+        <!--android:name=".Service.AIDLService"-->
+        <!--android:exported="true">-->
+        <!--<intent-filter>-->
+            <!--<action android:name="com.innovator.aidl"/>-->
+            <!--<category android:name="android.intent.category.DEFAULT"/>-->
+        <!--</intent-filter>-->
+    <!--</service>-->
+
+
         <service
-        android:name=".Service.AIDLService"
-        android:exported="true">
-        <intent-filter>
-            <action android:name="com.innovator.aidl"/>
-            <category android:name="android.intent.category.DEFAULT"/>
-        </intent-filter>
-    </service>
+            android:name=".Service.MessengerService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.innovator.messenger"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </service>
 
     </application>
 
