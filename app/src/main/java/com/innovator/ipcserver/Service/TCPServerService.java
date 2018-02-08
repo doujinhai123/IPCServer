@@ -26,11 +26,11 @@ public class TCPServerService extends Service {
 
     private boolean mIsServiceDestoyed = false;
     private String[] mDefinedMessages = new String[] {
-            "你好啊，🙃\n",
-            "请问你叫什么名字呀？你成功引起了我的注意\n",
-            "今天真冷，什么时候才能回暖啊\n",
-            "你知道吗？我可是可以和多个人同时聊天的哦\n",
-            "给你讲个笑话吧，据说爱笑的人运气都不会太差，不知道是不是真的\n"
+            "你好啊，哈哈",
+            "请问你叫什么名字呀？你成功引起了我的注意",
+            "今天真冷，什么时候才能回暖啊",
+            "你知道吗？我可是可以和多个人同时聊天的哦",
+            "给你讲个笑话吧，据说爱笑的人运气都不会太差，不知道是不是真的"
     };
 
     @Override
@@ -60,13 +60,14 @@ public class TCPServerService extends Service {
             ServerSocket serverSocket = null;
             try {
                 //监听 8688 端口
-                serverSocket = new ServerSocket(8687);
+                serverSocket = new ServerSocket(8688);
             }catch (IOException i){
                 Log.i("TCP","establish tcp server failed,port 8688，"+i.getMessage());
                 i.printStackTrace();
                 return;
             }
 
+            //死循环来读客户端的消息
             while (!mIsServiceDestoyed){
                 try{
                   //接收客户端请求
@@ -78,7 +79,6 @@ public class TCPServerService extends Service {
                         @Override
                         public void run() {
                             try {
-                                Log.i("TCP","11111111111111111111");
                                responseClient(client);
                             }catch (IOException o){
                                 o.printStackTrace();
@@ -106,24 +106,21 @@ public class TCPServerService extends Service {
         PrintWriter out = new PrintWriter(new BufferedWriter(
                 new OutputStreamWriter(client.getOutputStream())),true);
 
-        out.println("Weclome to the TCP Server\n");
+        out.println("欢迎来到聊天室！");
 
-        Log.i("TCP","222222222222222222");
         while (!mIsServiceDestoyed){
-            Log.i("TCP","33333333333333");
             String str = in.readLine();
-            Log.i("TCP","444444444444444");
             if (str == null){
                 //客户端断开连接
                 break;
             }
 
-            Log.i("TCP","正在读取客户端发送的消息: "+str);
+            Log.i("TCP","正在读取客户端发送过来的消息: "+str);
             int i = new Random().nextInt(mDefinedMessages.length);
             String msg = mDefinedMessages[i];
             //回复客户端，进行聊天
             out.println(msg);
-            Log.i("TCP","发送: "+str+"给客户端");
+            Log.i("TCP","回复客户端: "+msg);
 
         }
 
