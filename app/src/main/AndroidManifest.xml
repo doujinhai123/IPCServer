@@ -56,6 +56,15 @@
 
         </provider>
 
+        <service
+            android:name=".BinderPool.BinderPoolService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.innovator.binderpool"/>
+                <category android:name="android.intent.category.DEFAULT"/>
+            </intent-filter>
+        </service>
+
     </application>
 
     <permission
